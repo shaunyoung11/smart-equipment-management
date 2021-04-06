@@ -1,5 +1,8 @@
 .s-header {
+  display: flex;
+  align-items: center;
   .title {
     color: #f0f2f5;
+    margin-bottom: 0;
   }
 }
