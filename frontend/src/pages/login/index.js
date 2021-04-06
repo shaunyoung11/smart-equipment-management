@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
+import './style.scss';
 
 class Login extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Login extends Component {
             <Form.Item name="remember" valuePropName="checked">
               <Checkbox>记住我</Checkbox>
             </Form.Item>
-            <Form.Item {...tailLayout}>
+            <Form.Item>
               <Button type="primary" htmlType="submit" onClick="handleLogin">
                 登录
               </Button>

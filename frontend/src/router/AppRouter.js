@@ -1,31 +1,13 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Layout } from 'antd';
-import GlobalHeader from '../components/global/GlobalHeader';
-import GlobalSideBar from '../components/global/GlobalSideBar';
-import GlobalFoot from '../components/global/GlobalFoot';
-import Index from '../pages/index/index';
 
-const { Header, Sider, Content, Footer } = Layout;
+import Index from '../pages/index/index';
+import Login from '../pages/login';
 
 function AppRouter() {
   return (
     <Router>
-      <Layout>
-        <Header className="light">
-          <GlobalHeader></GlobalHeader>
-        </Header>
-        <Layout>
-          <Sider>
-            <GlobalSideBar></GlobalSideBar>
-          </Sider>
-          <Content>
-            <Route path="/" exact component={Index}></Route>
-          </Content>
-        </Layout>
-        <Footer>
-          <GlobalFoot></GlobalFoot>
-        </Footer>
-      </Layout>
+      <Route path="/" exact component={Index}></Route>
+      <Route path="/login" component={Login}></Route>
     </Router>
   );
 }
