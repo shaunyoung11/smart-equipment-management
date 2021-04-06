@@ -20,11 +20,15 @@ body {
       align-items: center;
     }
     .ant-layout-content {
-      height: calc(100vh - 64px - 64px);
+      height: calc(100vh - 64px - 32px);
       overflow-x: hidden;
     }
     .ant-layout-footer {
-      height: 64px;
+      height: 32px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

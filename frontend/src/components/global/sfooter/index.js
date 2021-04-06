@@ -1,5 +1,9 @@
+import './style.scss';
+
 function Sfooter() {
-  return <div>这里是GlobalFoot组件</div>;
+  return (
+    <div className="s-footer">© 2021 - ZeQi Studio - All rights reserved</div>
+  );
 }
 
 export default Sfooter;
