@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Table } from 'antd';
+import { Button, Table, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import store from '../../store';
+
+const { Title, Text } = Typography;
 
 class All extends Component {
   constructor(props) {
@@ -42,7 +44,10 @@ class All extends Component {
             <div className="btns">
               <Button type="primary">
                 <Link
-                  to={{ pathname: '/status', state: { name: record.name } }}
+                  to={{
+                    pathname: '/status',
+                    state: { name: record.name, id: record.id },
+                  }}
                 >
                   查看状态变更记录
                 </Link>
@@ -56,7 +61,7 @@ class All extends Component {
     ];
     this.state.tableData = [
       {
-        key: '1',
+        id: '000001',
         name: 'no1',
         status: '已借出',
         holder: 'syy',
@@ -68,7 +73,12 @@ class All extends Component {
   render() {
     return (
       <div className="all">
+        <Typography>
+          <Title level={2}>设备列表</Title>
+          <Text type="secondary">查看所有设备列表</Text>
+        </Typography>
         <Table
+          rowKey="id"
           columns={this.state.tableHeader}
           dataSource={this.state.tableData}
         ></Table>

@@ -40,7 +40,7 @@ class Alarm extends Component {
   render() {
     return (
       <div className="alarm">
-        <Table></Table>
+        <Table columns={this.state.tableHeader}></Table>
       </div>
     );
   }
