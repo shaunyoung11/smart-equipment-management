@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import { Menu } from 'antd';
 import {
   AlertOutlined,
@@ -8,34 +9,42 @@ import {
   FileSyncOutlined,
 } from '@ant-design/icons';
 import './style.scss';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const { SubMenu } = Menu;
 
-function Ssider() {
-  return (
-    <div className="s-sider">
-      <Menu mode="inline" theme="dark">
-        <Menu.Item icon={<AppstoreAddOutlined />}>
-          <Link to="/add">添加设备</Link>
-        </Menu.Item>
-        <SubMenu title="设备状态管理" icon={<AppstoreOutlined />}>
-          <Menu.Item icon={<FileSearchOutlined />}>
-            <Link to="/search">搜索设备</Link>
+class Ssider extends Component {
+  state = {};
+  render() {
+    return (
+      <div className="s-sider">
+        <Menu mode="inline" theme="dark">
+          <Menu.Item icon={<AppstoreAddOutlined />}>
+            <Link className="link" to="/add"></Link>
+            添加设备
           </Menu.Item>
-          <Menu.Item icon={<FileTextOutlined />}>
-            <Link to="/list">设备列表</Link>
+          <SubMenu title="设备状态管理" icon={<AppstoreOutlined />}>
+            <Menu.Item icon={<FileSearchOutlined />}>
+              <Link className="link" to="/search"></Link>
+              搜索设备
+            </Menu.Item>
+            <Menu.Item icon={<FileTextOutlined />}>
+              <Link className="link" to="/all"></Link>
+              设备列表
+            </Menu.Item>
+            <Menu.Item icon={<FileSyncOutlined />}>
+              <Link className="link" to="/status"></Link>
+              设备状态变更记录
+            </Menu.Item>
+          </SubMenu>
+          <Menu.Item icon={<AlertOutlined />}>
+            <Link className="link" to="/alert"></Link>
+            设备报警记录
           </Menu.Item>
-          <Menu.Item icon={<FileSyncOutlined />}>
-            <Link to="/status">设备状态变更记录</Link>
-          </Menu.Item>
-        </SubMenu>
-        <Menu.Item icon={<AlertOutlined />}>
-          <Link to="/alert">设备报警记录</Link>
-        </Menu.Item>
-      </Menu>
-    </div>
-  );
+        </Menu>
+      </div>
+    );
+  }
 }
 
-export default Ssider;
+export default withRouter(Ssider);

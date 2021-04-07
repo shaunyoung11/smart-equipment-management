@@ -1,13 +1,18 @@
-import { BrowserRouter as Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Sheader from '../../components/global/sheader';
 import Ssider from '../../components/global/ssider';
 import Sfooter from '../../components/global/sfooter';
+import Add from '../add';
+import All from '../all';
+import Find from '../find';
+import Status from '../status';
+import Alarm from '../alarm';
 import { Layout } from 'antd';
 import './style.scss';
 
 const { Header, Sider, Content, Footer } = Layout;
 
-function Index() {
+function Index(props) {
   return (
     <Layout>
       <Header>
@@ -18,7 +23,15 @@ function Index() {
           <Ssider></Ssider>
         </Sider>
         <Content>
-          <Route path="/" exact component={Index}></Route>
+          <Router>
+            <Switch>
+              <Route path="/add" component={Add}></Route>
+              <Route path="/search" component={Find}></Route>
+              <Route path="/all" component={All}></Route>
+              <Route path="/status" component={Status}></Route>
+              <Route path="/alert" component={Alarm}></Route>
+            </Switch>
+          </Router>
         </Content>
       </Layout>
       <Footer>

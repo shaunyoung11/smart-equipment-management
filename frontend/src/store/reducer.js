@@ -1,5 +1,7 @@
 const defaultState = {};
 
-export default (state = defaultState, action) => {
+const reducer = (state = defaultState, action) => {
   return state;
 };
+
+export default reducer;
