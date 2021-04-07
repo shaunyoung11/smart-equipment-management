@@ -32,13 +32,9 @@ class Ssider extends Component {
               <Link className="link" to="/all"></Link>
               设备列表
             </Menu.Item>
-            <Menu.Item icon={<FileSyncOutlined />}>
-              <Link className="link" to="/status"></Link>
-              设备状态变更记录
-            </Menu.Item>
           </SubMenu>
           <Menu.Item icon={<AlertOutlined />}>
-            <Link className="link" to="/alert"></Link>
+            <Link className="link" to="/alarm"></Link>
             设备报警记录
           </Menu.Item>
         </Menu>

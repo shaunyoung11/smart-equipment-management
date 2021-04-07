@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Table } from 'antd';
+import { Link } from 'react-router-dom';
 import store from '../../store';
 
 class All extends Component {
@@ -37,8 +38,16 @@ class All extends Component {
         dataIndex: 'options',
         key: 'options',
         render: () => {
-          <Button type="primary">修改设备状态</Button>;
-          <Button danger>删除设备</Button>;
+          return (
+            <div className="btns">
+              <Button type="primary">
+                <Link to={{ path: '/status', state: {} }}></Link>
+                查看状态变更记录
+              </Button>
+              <Button>修改设备状态</Button>
+              <Button danger>删除设备</Button>
+            </div>
+          );
         },
       },
     ];
