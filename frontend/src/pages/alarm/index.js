@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Image, Table } from 'antd';
+import { Image, Table, Typography } from 'antd';
 import store from '../../store';
+import './style.scss';
+
+const { Title, Text } = Typography;
 
 class Alarm extends Component {
   constructor(props) {
@@ -40,6 +43,10 @@ class Alarm extends Component {
   render() {
     return (
       <div className="alarm">
+        <Typography>
+          <Title level={2}>设备报警记录</Title>
+          <Text type="secondary">查看设备报警记录列表</Text>
+        </Typography>
         <Table columns={this.state.tableHeader}></Table>
       </div>
     );

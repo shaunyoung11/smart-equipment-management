@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Table, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import store from '../../store';
+import './style.scss';
 
 const { Title, Text } = Typography;
 
@@ -42,7 +43,7 @@ class All extends Component {
         render: (text, record) => {
           return (
             <div className="btns">
-              <Button type="primary">
+              <Button className="item" type="primary">
                 <Link
                   to={{
                     pathname: '/status',
@@ -52,8 +53,10 @@ class All extends Component {
                   查看状态变更记录
                 </Link>
               </Button>
-              <Button>修改设备状态</Button>
-              <Button danger>删除设备</Button>
+              <Button className="item">修改设备状态</Button>
+              <Button className="item" danger>
+                删除设备
+              </Button>
             </div>
           );
         },

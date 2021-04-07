@@ -25,7 +25,7 @@ class Ssider extends Component {
           <SubMenu title="设备状态管理" icon={<AppstoreOutlined />}>
             <Menu.Item key="#/search" icon={<FileSearchOutlined />}>
               <Link className="link" to="/search"></Link>
-              搜索设备
+              查找设备
             </Menu.Item>
             <Menu.Item key="#/all" icon={<FileTextOutlined />}>
               <Link className="link" to="/all"></Link>
