@@ -1,0 +1,14 @@
+<!--miniprogram/pages/login.wxml-->
+<page>
+  <mp-form>
+    <mp-cells title="登录">
+      <mp-cell title="用户名">
+        <input value="{{username}}" data-name="username" type="text" bindinput="changeValue" placeholder="请输入用户名" />
+      </mp-cell>
+      <mp-cell title="密码">
+        <input value="{{password}}" data-name="password" type="text" bindinput="changeValue" placeholder="请输入密码" password />
+      </mp-cell>
+    </mp-cells>
+  </mp-form>
+  <button class="weui-btn login-btn" type="primary" bindtap="handleLogin">登录</button>
+</page>
