@@ -20,12 +20,18 @@ class Status extends Component {
         key: 'holder',
       },
     ];
+    if (this.props.location.state) {
+      window.sessionStorage.setItem(
+        'deviceName',
+        this.props.location.state.name
+      );
+    }
   }
   render() {
     return (
       <div className="status">
         <Typography>
-          <Title level={3}>{this.props.location.query.state}</Title>
+          <Title level={2}>{window.sessionStorage.getItem('deviceName')}</Title>
           <Text type="secondary">状态变更记录表</Text>
         </Typography>
         <Table columns={this.state.tableHeader}></Table>

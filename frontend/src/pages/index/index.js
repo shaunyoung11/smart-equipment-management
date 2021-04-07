@@ -29,7 +29,7 @@ function Index(props) {
               <Route path="/search" component={Find}></Route>
               <Route path="/all" component={All}></Route>
               <Route path="/status" component={Status}></Route>
-              <Route path="/alert" component={Alarm}></Route>
+              <Route path="/alarm" component={Alarm}></Route>
             </Switch>
           </Router>
         </Content>

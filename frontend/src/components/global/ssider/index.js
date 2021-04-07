@@ -6,7 +6,6 @@ import {
   AppstoreAddOutlined,
   FileSearchOutlined,
   FileTextOutlined,
-  FileSyncOutlined,
 } from '@ant-design/icons';
 import './style.scss';
 import { Link, withRouter } from 'react-router-dom';

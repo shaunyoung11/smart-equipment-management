@@ -37,12 +37,15 @@ class All extends Component {
         title: '操作',
         dataIndex: 'options',
         key: 'options',
-        render: () => {
+        render: (text, record) => {
           return (
             <div className="btns">
               <Button type="primary">
-                <Link to={{ path: '/status', state: {} }}></Link>
-                查看状态变更记录
+                <Link
+                  to={{ pathname: '/status', state: { name: record.name } }}
+                >
+                  查看状态变更记录
+                </Link>
               </Button>
               <Button>修改设备状态</Button>
               <Button danger>删除设备</Button>
@@ -51,11 +54,24 @@ class All extends Component {
         },
       },
     ];
+    this.state.tableData = [
+      {
+        key: '1',
+        name: 'no1',
+        status: '已借出',
+        holder: 'syy',
+        level: '保密',
+        time: '2021-04-07',
+      },
+    ];
   }
   render() {
     return (
       <div className="all">
-        <Table columns={this.state.tableHeader}></Table>
+        <Table
+          columns={this.state.tableHeader}
+          dataSource={this.state.tableData}
+        ></Table>
       </div>
     );
   }
