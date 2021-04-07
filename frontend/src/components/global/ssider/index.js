@@ -6,6 +6,9 @@ import {
   AppstoreAddOutlined,
   FileSearchOutlined,
   FileTextOutlined,
+  UserOutlined,
+  UnorderedListOutlined,
+  UsergroupAddOutlined,
 } from '@ant-design/icons';
 import './style.scss';
 import { Link, withRouter } from 'react-router-dom';
@@ -18,8 +21,8 @@ class Ssider extends Component {
     return (
       <div className="s-sider">
         <Menu mode="inline" theme="dark" selectedKeys={[window.location.hash]}>
-          <Menu.Item key="#/add" icon={<AppstoreAddOutlined />}>
-            <Link className="link" to="/add"></Link>
+          <Menu.Item key="#/addDevice" icon={<AppstoreAddOutlined />}>
+            <Link className="link" to="/addDevice"></Link>
             添加设备
           </Menu.Item>
           <SubMenu title="设备状态管理" icon={<AppstoreOutlined />}>
@@ -36,6 +39,16 @@ class Ssider extends Component {
             <Link className="link" to="/alarm"></Link>
             设备报警记录
           </Menu.Item>
+          <SubMenu title="人员管理" icon={<UserOutlined />}>
+            <Menu.Item key="#/addStaff" icon={<UsergroupAddOutlined />}>
+              <Link className="link" to="/addStaff"></Link>
+              添加员工
+            </Menu.Item>
+            <Menu.Item key="#/staff" icon={<UnorderedListOutlined />}>
+              <Link className="link" to="/staff"></Link>
+              员工列表
+            </Menu.Item>
+          </SubMenu>
         </Menu>
       </div>
     );
