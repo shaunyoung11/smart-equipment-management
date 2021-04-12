@@ -1,0 +1,47 @@
+.index {
+  display: flex;
+  flex-direction: column;
+}
+
+.index .head {
+  display: flex;
+  flex-direction: column;
+}
+
+.index .head .title {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 32px;
+  margin: 14px 0;
+}
+
+.index .head .desc {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.index .function {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 16px;
+  row-gap: 12px;
+  margin-top: 24px;
+}
+
+.index .function .item{
+  width: 100%;
+  height: 136px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(180, 180, 180, 0.2);
+}
+
+.index .function .item .logo{
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+}
