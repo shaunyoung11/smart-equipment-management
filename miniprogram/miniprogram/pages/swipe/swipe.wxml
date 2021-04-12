@@ -1,2 +1,5 @@
-<!--miniprogram/pages/swipe/swipe.wxml-->
-<text>miniprogram/pages/swipe/swipe.wxml</text>
+<page>
+  <view class="swipe">
+    请将 NFC 标签贴放在手机背部
+  </view>
+</page>

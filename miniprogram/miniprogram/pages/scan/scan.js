@@ -12,7 +12,41 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.scanCode({
+      onlyFromCamera: true,
+      success: (res) => {
+        console.log('扫码成功', res);
+        wx.checkIsSupportSoterAuthentication({
+          success: (auth) => {
+            console.log('获取支持的生物认证技术成功', auth);
+            wx.startSoterAuthentication({
+              challenge: res.result,
+              requestAuthModes: [...auth.supportMode],
+              authContent: '请进行身份认证',
+              success: (auths) => {
+                console.log(auths);
+                //
+              },
+              fail: (authf) => {
+                console.log(authf);
+                wx.showToast({
+                  title: '失败！',
+                })
+              }
+            })
+          },
+          fail: (res) => {
+            console.log('获取支持的生物认证技术失败', res);
+          }
+        })
+      },
+      fail: (res) => {
+        console.log('扫码失败', res);
+        wx.navigateBack({
+          delta: 1,
+        })
+      }
+    });
   },
 
   /**
