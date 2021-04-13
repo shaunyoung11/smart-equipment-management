@@ -113,10 +113,12 @@ Page({
           wx.showModal({
             title: '成功',
             content: '借用设备成功',
-            showCancel: false
-          });
-          wx.navigateBack({
-            delta: 1,
+            showCancel: false,
+            success: (res) => {
+              wx.navigateBack({
+                delta: 1,
+              });
+            }
           });
         } else {
           wx.showModal({

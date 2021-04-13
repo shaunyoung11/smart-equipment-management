@@ -1,3 +1,4 @@
 {
-  "usingComponents": {}
+  "usingComponents": {},
+  "navigationBarTitleText": "扫 NFC 借用设备"
 }

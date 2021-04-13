@@ -12,6 +12,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showModal({
+      showCancel: false,
+      title: '提示',
+      content: '当前标签暂不可使用 NFC 模块进行读取',
+      success: (res)=>{
+        wx.navigateBack({
+          delta: 1,
+        });
+      }
+    });
     
   },
 
