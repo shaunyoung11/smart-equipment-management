@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    password: ""
   },
 
   /**
@@ -25,7 +25,7 @@ Page({
               authContent: '请进行身份认证',
               success: (auths) => {
                 console.log(auths);
-                //
+                // 成功回调，发起更改设备状态请求
               },
               fail: (authf) => {
                 console.log(authf);
@@ -37,6 +37,11 @@ Page({
           },
           fail: (res) => {
             console.log('获取支持的生物认证技术失败', res);
+            wx.showModal({
+              title:'提示',
+              content: '当前设备不支持生物认证，请输入密码！',
+              showCancel: false
+            })
           }
         })
       },

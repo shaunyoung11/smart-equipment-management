@@ -1,0 +1,12 @@
+<page>
+  <view class="scan app-width">
+    <mp-form>
+      <mp-cells title="身份认证">
+        <mp-cell title="密码">
+          <input value="{{ password }}" type="number" password />
+        </mp-cell>
+      </mp-cells>
+    </mp-form>
+    <button class="btn" type="primary">确定</button>
+  </view>
+</page>
