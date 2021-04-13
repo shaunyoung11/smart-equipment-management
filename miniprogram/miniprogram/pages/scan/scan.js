@@ -78,7 +78,7 @@ Page({
 
   async handleCheckPassword(password){
     const getPassword = await wx.cloud.callFunction({
-      name: 'getPassword',
+      name: 'getUserInfo',
     }).then(res=>{
       return res.result.data[0].password;
     });
@@ -89,6 +89,8 @@ Page({
     console.log('这里将发起请求')
     wx.request({
       url: 'url',
+      method:'POST',
+      data:{},
       success:(res)=>{
         if(res.data.success){
           wx.showModal({

@@ -1,2 +1,19 @@
-<!--miniprogram/pages/active/active.wxml-->
-<text>miniprogram/pages/active/active.wxml</text>
+<page>
+  <view class="active app-width">
+    <mp-cells>
+      <mp-cell>
+        <mp-uploader
+          bindfail="uploadError"
+          bindsuccess="uploadSuccess"
+          bindselect="handleChoosePhoto"
+          source-type="['album', 'camera']"
+          upload="{{ uplaodFile }}"
+          files="{{ files }}"
+          max-count="1"
+          title="证件照上传"
+          tips="请选择清晰的个人免冠证件照"
+        ></mp-uploader>
+      </mp-cell>
+    </mp-cells>
+  </view>
+</page>

@@ -1,18 +1,52 @@
-// miniprogram/pages/active/active.js
+import url from '../../config';
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    files: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: async function (options) {
+    const userInfo = await wx.cloud.callFunction({
+      name: 'getUserInfo'
+    });
+    this.setData({
+      userId: userInfo.result.data[0].username
+    })
+  },
 
+  /**
+   * 选择照片事件
+   * @param {Object} e 
+   */
+  async handleChoosePhoto(e) {
+    console.log(e);
+    this.setData({
+      filePath: e.detail.tempFilePaths[0]
+    });
+  },
+
+  handleUploadImage() {
+    wx.uploadFile({
+      filePath: this.data.filePath,
+      name: 'photo',
+      url: url + '/user/active',
+      formData: {
+        userId: userId
+      },
+      success: (res) => {
+        console.log('成功', res);
+      },
+      fail: (res) => {
+        console.log('失败', res);
+      }
+    });
   },
 
   /**

@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isActive: true,
+    isActive: false,
     inactive:[
       {
         logo: '/images/active.png',
