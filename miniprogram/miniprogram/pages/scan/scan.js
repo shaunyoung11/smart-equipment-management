@@ -1,4 +1,5 @@
-// miniprogram/pages/scan/scan.js
+import url from '../../config';
+
 Page({
 
   /**
@@ -6,13 +7,15 @@ Page({
    */
   data: {
     password: "",
-    deviceId: ""
+    deviceId: "",
+    username: ""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.handleGetUserInfo();
     wx.scanCode({
       onlyFromCamera: true,
       success: (res) => {
@@ -42,7 +45,7 @@ Page({
           fail: (res) => {
             console.log('获取支持的生物认证技术失败', res);
             wx.showModal({
-              title:'提示',
+              title: '提示',
               content: '当前设备不支持生物认证，请输入密码！',
               showCancel: false
             })
@@ -58,17 +61,17 @@ Page({
     });
   },
 
-  async handleClickBtn(){
-    if(this.data.password !== ''){
-      if(await this.handleCheckPassword(this.data.password)){
+  handleClickBtn() {
+    if (this.data.password !== '') {
+      if (this.handleCheckPassword(this.data.password)) {
         this.handleRequest();
-      }else{
+      } else {
         wx.showToast({
           title: '密码错误',
           icon: 'none'
         });
       }
-    }else{
+    } else {
       wx.showToast({
         title: '密码不能为空',
         icon: 'none'
@@ -76,29 +79,46 @@ Page({
     }
   },
 
-  async handleCheckPassword(password){
-    const getPassword = await wx.cloud.callFunction({
+  async handleGetUserInfo() {
+    const userInfo = await wx.cloud.callFunction({
       name: 'getUserInfo',
-    }).then(res=>{
-      return res.result.data[0].password;
+    }).then(res => {
+      return res.result.data[0];
     });
-    return password === getPassword;
+    this.setData({
+      username: userInfo.username,
+      password: userInfo.password
+    })
   },
 
-  handleRequest(){
+  handleCheckPassword(password) {
+    return this.data.password === password;
+  },
+
+  handleRequest() {
+    wx.showLoading({
+      title: '请求中',
+    })
     console.log('这里将发起请求')
     wx.request({
-      url: 'url',
-      method:'POST',
-      data:{},
-      success:(res)=>{
-        if(res.data.success){
+      url: url + '/lendDevice',
+      method: 'POST',
+      data: {
+        employeeId: this.data.username,
+        deviceId: this.data.deviceId
+      },
+      success: (res) => {
+        wx.hideLoading({})
+        if (res.data.success) {
           wx.showModal({
             title: '成功',
             content: '借用设备成功',
             showCancel: false
           });
-        }else{
+          wx.navigateBack({
+            delta: 1,
+          });
+        } else {
           wx.showModal({
             title: '失败',
             content: res.data.message,
@@ -106,7 +126,7 @@ Page({
           });
         }
       },
-      fail: (res)=>{
+      fail: (res) => {
         wx.showModal({
           title: '失败',
           content: res.data.message,
@@ -116,7 +136,7 @@ Page({
     })
   },
 
-  handleInputChange(e){
+  handleInputChange(e) {
     console.log(e);
     this.setData({
       password: e.detail.value

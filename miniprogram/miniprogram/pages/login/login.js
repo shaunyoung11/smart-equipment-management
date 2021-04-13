@@ -68,18 +68,17 @@ Page({
       return res;
     });
     console.log(userInfo);
-    this.handleRequest(userInfo.result.data[0].username,userInfo.result.data[0].password);
+    this.handleRequest(userInfo.result.data[0].username, userInfo.result.data[0].password);
   },
 
   async handleRequest(username, password) {
-    if(username!==''&&password!==''){
-
+    if (username !== '' && password !== '') {
       wx.request({
         url: url + '/login',
         method: "POST",
         data: {
-          username:username,
-          password:password
+          username: username,
+          password: password
         },
         success: (res) => {
           console.log(res);
@@ -87,10 +86,10 @@ Page({
             wx.navigateTo({
               url: `../index/index?isActive=${res.data.data.userInfo.activeTag}`,
             })
-          }else{
+          } else {
             wx.showToast({
               title: res.data.message,
-              icon:'none'
+              icon: 'none'
             });
           }
         },
