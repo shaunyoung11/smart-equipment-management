@@ -47,9 +47,27 @@ Page({
       },
       success: (res) => {
         console.log('成功', res);
+        const data = JSON.parse(res.data);
+        if(data.success){
+          wx.showToast({
+            title: '激活成功',
+          });
+          wx.navigateBack({
+            delta: 1,
+          });
+        }else{
+          wx.showModal({
+            title: '激活失败，请重新选择证件照上传',
+            showCancel: false
+          });
+        }
       },
       fail: (res) => {
         console.log('失败', res);
+        wx.showToast({
+          title: '上传失败',
+          icon:'none'
+        })
       }
     });
   },
