@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    password: ""
+    password: "",
+    deviceId: ""
   },
 
   /**
@@ -16,6 +17,9 @@ Page({
       onlyFromCamera: true,
       success: (res) => {
         console.log('扫码成功', res);
+        this.setData({
+          deviceId: res.result
+        })
         wx.checkIsSupportSoterAuthentication({
           success: (auth) => {
             console.log('获取支持的生物认证技术成功', auth);
@@ -25,7 +29,7 @@ Page({
               authContent: '请进行身份认证',
               success: (auths) => {
                 console.log(auths);
-                // 成功回调，发起更改设备状态请求
+                this.handleRequest();
               },
               fail: (authf) => {
                 console.log(authf);
@@ -52,6 +56,69 @@ Page({
         })
       }
     });
+  },
+
+  async handleClickBtn(){
+    if(this.data.password !== ''){
+      if(await this.handleCheckPassword(this.data.password)){
+        this.handleRequest();
+      }else{
+        wx.showToast({
+          title: '密码错误',
+          icon: 'none'
+        });
+      }
+    }else{
+      wx.showToast({
+        title: '密码不能为空',
+        icon: 'none'
+      })
+    }
+  },
+
+  async handleCheckPassword(password){
+    const getPassword = await wx.cloud.callFunction({
+      name: 'getPassword',
+    }).then(res=>{
+      return res.result.data[0].password;
+    });
+    return password === getPassword;
+  },
+
+  handleRequest(){
+    console.log('这里将发起请求')
+    wx.request({
+      url: 'url',
+      success:(res)=>{
+        if(res.data.success){
+          wx.showModal({
+            title: '成功',
+            content: '借用设备成功',
+            showCancel: false
+          });
+        }else{
+          wx.showModal({
+            title: '失败',
+            content: res.data.message,
+            showCancel: false
+          });
+        }
+      },
+      fail: (res)=>{
+        wx.showModal({
+          title: '失败',
+          content: res.data.message,
+          showCancel: false
+        });
+      }
+    })
+  },
+
+  handleInputChange(e){
+    console.log(e);
+    this.setData({
+      password: e.detail.value
+    })
   },
 
   /**

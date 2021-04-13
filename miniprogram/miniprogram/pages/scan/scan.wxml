@@ -3,10 +3,10 @@
     <mp-form>
       <mp-cells title="身份认证">
         <mp-cell title="密码">
-          <input value="{{ password }}" type="number" password />
+          <input value="{{ password }}" type="number" password bindinput="handleInputChange" />
         </mp-cell>
       </mp-cells>
     </mp-form>
-    <button class="btn" type="primary">确定</button>
+    <button class="btn" type="primary" bindtap="handleClickBtn">确定</button>
   </view>
 </page>
