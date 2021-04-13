@@ -21,11 +21,11 @@ exports.main = async (event, context) => {
         password: event.password
       }
     });
-  }else{
+  } else if (event.username !== '' && event.password !== '') {
     await db.collection('user').where({
-      openid:wxContext.OPENID
+      openid: wxContext.OPENID
     }).update({
-      data:{
+      data: {
         username: event.username,
         password: event.password
       }

@@ -1,3 +1,5 @@
+import url from "../../config";
+
 // miniprogram/pages/index/index.js
 Page({
 
@@ -6,15 +8,12 @@ Page({
    */
   data: {
     isActive: false,
-    inactive:[
-      {
-        logo: '/images/active.png',
-        name: '账号激活',
-        operation: 'active',
-      }
-    ],
-    actived: [
-      {
+    inactive: [{
+      logo: '/images/active.png',
+      name: '账号激活',
+      operation: 'active',
+    }],
+    actived: [{
         logo: '/images/scan_code.png',
         name: '扫码借用设备',
         operation: 'scan',
@@ -31,21 +30,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options);
+    this.setData({
+      isActive: options.isActive === 'false' ? false : true
+    });
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
+  onShow: async function () {},
 
   /**
    * 处理选择菜单
    * @param {Object} e 
    */
-  handleSelectOperation(e){
+  handleSelectOperation(e) {
     let data = e.currentTarget.dataset.operation;
     switch (data) {
       case 'active':
@@ -53,7 +50,7 @@ Page({
           url: '/pages/active/active',
         })
         break;
-      
+
       case 'scan':
         wx.navigateTo({
           url: '/pages/scan/scan',

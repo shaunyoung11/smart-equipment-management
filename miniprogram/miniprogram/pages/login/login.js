@@ -13,8 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-    const userInfo = await this.handleLogin();
-    this.handleRequest(userInfo.username, userInfo.password);
+    this.handleLogin();
   },
 
   /**
@@ -69,37 +68,40 @@ Page({
       return res;
     });
     console.log(userInfo);
-    return userInfo.result.data[0];
+    this.handleRequest(userInfo.result.data[0].username,userInfo.result.data[0].password);
   },
 
   async handleRequest(username, password) {
-    wx.request({
-      url: url + '/login',
-      method: "POST",
-      data: {
-        username,
-        password
-      },
-      success: (res) => {
-        console.log(res);
-        if (res.data.success) {
-          wx.navigateTo({
-            url: '../index/index',
-          })
-        }else{
+    if(username!==''&&password!==''){
+
+      wx.request({
+        url: url + '/login',
+        method: "POST",
+        data: {
+          username:username,
+          password:password
+        },
+        success: (res) => {
+          console.log(res);
+          if (res.data.success) {
+            wx.navigateTo({
+              url: `../index/index?isActive=${res.data.data.userInfo.activeTag}`,
+            })
+          }else{
+            wx.showToast({
+              title: res.data.message,
+              icon:'none'
+            });
+          }
+        },
+        fail: (res) => {
+          console.log(res);
           wx.showModal({
             title: '失败',
             content: res.data.message
           });
         }
-      },
-      fail: (res) => {
-        console.log(res);
-        wx.showModal({
-          title: '失败',
-          content: res.data.message
-        });
-      }
-    });
+      });
+    }
   }
 })
