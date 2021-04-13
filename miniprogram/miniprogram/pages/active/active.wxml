@@ -15,5 +15,6 @@
         ></mp-uploader>
       </mp-cell>
     </mp-cells>
+    <button type="primary" bindtap="handleUploadImage">上传</button>
   </view>
 </page>

@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    files: []
+    files: [],
+    filePath: ""
   },
 
   /**
@@ -28,17 +29,21 @@ Page({
   async handleChoosePhoto(e) {
     console.log(e);
     this.setData({
-      filePath: e.detail.tempFilePaths[0]
+      filePath: e.detail.tempFilePaths[0],
+      files: [{url: e.detail.tempFilePaths[0]}]
     });
   },
 
   handleUploadImage() {
     wx.uploadFile({
       filePath: this.data.filePath,
-      name: 'photo',
+      name: 'image',
       url: url + '/user/active',
+      header:{
+        "content-type": "multipart/form-data"
+      },
       formData: {
-        userId: userId
+        userId: this.data.userId,
       },
       success: (res) => {
         console.log('成功', res);
