@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import store from '../../store';
 
 const { Title, Text } = Typography;
+const { Column } = Table;
 
 class Staff extends Component {
   constructor(props) {
@@ -54,7 +55,12 @@ class Staff extends Component {
           <Title level={2}>员工列表</Title>
           <Text type="secondary">查看员工列表</Text>
         </Typography>
-        <Table columns={this.state.tableHeader}></Table>
+        <Table>
+          <Column title="员工 ID" dataIndex="id" key="id"></Column>
+          <Column title="姓名" dataIndex="name" key="name"></Column>
+          <Column title="性别" dataIndex="sex" key="sex"></Column>
+          <Column title="操作" dataIndex="options" key="options"></Column>
+        </Table>
       </div>
     );
   }

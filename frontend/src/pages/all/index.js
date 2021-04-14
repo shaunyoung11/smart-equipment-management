@@ -34,7 +34,7 @@ class All extends Component {
         {/* 数据表格 */}
         <Table
           rowKey={(record) => {
-            return record.deviceName + Date.now();
+            return record.deviceId + Date.now();
           }}
           dataSource={this.state.deviceListAll}
         >

@@ -44,8 +44,8 @@ class Alarm extends Component {
     return (
       <div className="alarm">
         <Typography>
-          <Title level={2}>设备报警记录</Title>
-          <Text type="secondary">查看设备报警记录列表</Text>
+          <Title level={2}>设备带出记录</Title>
+          <Text type="secondary">查看设备带出记录列表</Text>
         </Typography>
         <Table columns={this.state.tableHeader}></Table>
       </div>

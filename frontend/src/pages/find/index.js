@@ -12,6 +12,7 @@ import React, { Component } from 'react';
 import store from '../../store';
 import { getDeviceByName } from '../../store/actionCreators';
 import './style.scss';
+import axios from 'axios';
 
 const { Title, Text } = Typography;
 const { Column } = Table;
@@ -21,6 +22,8 @@ class Find extends Component {
     super(props);
     this.state = store.getState();
     this.storeChange = this.storeChange.bind(this);
+    this.handleDelDevice = this.handleDelDevice.bind(this);
+    this.handleSearchDevice = this.handleSearchDevice.bind(this);
     this.unsubscribe = store.subscribe(this.storeChange);
   }
 
@@ -43,7 +46,7 @@ class Find extends Component {
         <Table
           dataSource={this.state.deviceListFind}
           rowKey={(record) => {
-            return record.deviceName + Date.now();
+            return record.deviceId + Date.now();
           }}
         >
           <Column title="设备名称" dataIndex="deviceName" key="deviceName" />
@@ -139,8 +142,32 @@ class Find extends Component {
 
   handleSearchDevice(value) {
     console.log(value);
+    window.localStorage.setItem('searchText', value);
+    this.handleGetDeviceList();
+  }
+
+  handleGetDeviceList() {
+    const value = window.localStorage.getItem('searchText');
     const action = getDeviceByName(value);
     store.dispatch(action);
+  }
+
+  /**
+   * 删除设备
+   * @param {Number} index 待删除记录的下标
+   * @param {String} id 待删除设备的 id
+   */
+  handleDelDevice(index, id) {
+    console.log(index, id);
+    axios.delete('/device/delete?deviceId=' + id).then((res) => {
+      console.log(res);
+      if (res.data.success) {
+        message.success('删除成功');
+        this.handleGetDeviceList();
+      } else {
+        message.error('删除失败');
+      }
+    });
   }
 }
 

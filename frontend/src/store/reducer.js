@@ -8,7 +8,7 @@ const defaultState = {
 const reducer = (state = defaultState, action) => {
   if (action.type === GET_DEVICE_LIST) {
     let newState = JSON.parse(JSON.stringify(state));
-    newState.deviceListAll = action.value;
+    newState.deviceListAll = JSON.parse(JSON.stringify(action.value));
     return newState;
   }
   if (action.type === GET_DEVICE_BY_NAME) {
