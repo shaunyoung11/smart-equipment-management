@@ -1,9 +1,23 @@
 .all {
-  .btns {
-    display: flex;
-    align-items: center;
-    .item {
-      margin-left: 16px;
+  .ant-table-wrapper {
+    .lent {
+      color: #1890ff;
+    }
+    .in-store {
+      color: #52c41a;
+    }
+    .device-level.important {
+      color: #d48806;
+    }
+    .device-level.secret {
+      color: #d4380d;
+    }
+    .btns {
+      display: flex;
+      align-items: center;
+      .item {
+        margin-left: 16px;
+      }
     }
   }
 }

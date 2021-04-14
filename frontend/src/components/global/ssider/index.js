@@ -21,24 +21,24 @@ class Ssider extends Component {
     return (
       <div className="s-sider">
         <Menu mode="inline" theme="dark" selectedKeys={[window.location.hash]}>
-          <Menu.Item key="#/addDevice" icon={<AppstoreAddOutlined />}>
-            <Link className="link" to="/addDevice"></Link>
-            添加设备
-          </Menu.Item>
-          <SubMenu title="设备状态管理" icon={<AppstoreOutlined />}>
-            <Menu.Item key="#/search" icon={<FileSearchOutlined />}>
-              <Link className="link" to="/search"></Link>
-              查找设备
+          <SubMenu title="设备管理" icon={<AppstoreOutlined />}>
+            <Menu.Item key="#/addDevice" icon={<AppstoreAddOutlined />}>
+              <Link className="link" to="/addDevice"></Link>
+              添加设备
             </Menu.Item>
             <Menu.Item key="#/all" icon={<FileTextOutlined />}>
               <Link className="link" to="/all"></Link>
               设备列表
             </Menu.Item>
+            <Menu.Item key="#/search" icon={<FileSearchOutlined />}>
+              <Link className="link" to="/search"></Link>
+              查找设备
+            </Menu.Item>
+            <Menu.Item key="#/alarm" icon={<AlertOutlined />}>
+              <Link className="link" to="/alarm"></Link>
+              设备带出记录
+            </Menu.Item>
           </SubMenu>
-          <Menu.Item key="#/alarm" icon={<AlertOutlined />}>
-            <Link className="link" to="/alarm"></Link>
-            设备报警记录
-          </Menu.Item>
           <SubMenu title="人员管理" icon={<UserOutlined />}>
             <Menu.Item key="#/addStaff" icon={<UsergroupAddOutlined />}>
               <Link className="link" to="/addStaff"></Link>
