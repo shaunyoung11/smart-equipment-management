@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Button, Table, Typography } from 'antd';
+import { Button, message, Popconfirm, Table, Typography } from 'antd';
 import { Link } from 'react-router-dom';
-
 import store from '../../store';
 import './style.scss';
 import { getDeviceList } from '../../store/actionCreators';
+import axios from 'axios';
 
 const { Title, Text } = Typography;
 const { Column } = Table;
@@ -44,7 +44,6 @@ class All extends Component {
             dataIndex="holderId"
             key="holderId"
             render={(text, record) => {
-              console.log(record);
               if (text !== null) {
                 // 如果当前持有者名称不为空，则显示 xxx 持有
                 return <span className="lent">{text + ' 持有'}</span>;
@@ -98,13 +97,21 @@ class All extends Component {
                   {/* 修改设备状态 */}
                   <Button className="item">修改设备状态</Button>
                   {/* 删除设备 */}
-                  <Button
-                    className="item"
-                    danger
-                    onClick={this.handleDelDevice(index)}
+                  <Popconfirm
+                    title="是否确认删除该设备？"
+                    onConfirm={() => {
+                      this.handleDelDevice(index, record.deviceId);
+                    }}
+                    onCancel={() => {
+                      message.info('取消删除操作');
+                    }}
+                    okText="确认"
+                    cancelText="取消"
                   >
-                    删除设备
-                  </Button>
+                    <Button className="item" danger>
+                      删除设备
+                    </Button>
+                  </Popconfirm>
                 </div>
               );
             }}
@@ -118,8 +125,7 @@ class All extends Component {
    * 组件挂载完成时，向 store 发起获取设备列表的请求
    */
   componentDidMount() {
-    const action = getDeviceList();
-    store.dispatch(action);
+    this.handleGetDeviceList();
   }
 
   /**
@@ -136,12 +142,27 @@ class All extends Component {
     this.setState(store.getState());
   }
 
+  handleGetDeviceList() {
+    const action = getDeviceList();
+    store.dispatch(action);
+  }
+
   /**
    * 删除设备
-   * @param {Number} index
+   * @param {Number} index 待删除记录的下标
+   * @param {String} id 待删除设备的 id
    */
-  handleDelDevice(index) {
-    console.log(index);
+  handleDelDevice(index, id) {
+    console.log(index, id);
+    axios.delete('/device/delete?deviceId=' + id).then((res) => {
+      console.log(res);
+      if (res.data.success) {
+        message.success('删除成功');
+        this.handleGetDeviceList();
+      } else {
+        message.error('删除失败');
+      }
+    });
   }
 }
 
