@@ -21,7 +21,12 @@ class Staff extends Component {
           <Title level={2}>员工列表</Title>
           <Text type="secondary">查看员工列表</Text>
         </Typography>
-        <Table>
+        <Table
+          dataSource={this.state.staffList}
+          rowKey={(record) => {
+            return record.employeeId + Date.now();
+          }}
+        >
           <Column title="员工 ID" dataIndex="employeeId" key="employeeId" />
           <Column title="姓名" dataIndex="employeeName" key="employeeName" />
           <Column
@@ -56,7 +61,9 @@ class Staff extends Component {
                   <Button
                     className="item"
                     danger
-                    onClick={this.handleDeleteStaff(record)}
+                    onClick={() => {
+                      this.handleDeleteStaff(record);
+                    }}
                   >
                     删除员工
                   </Button>
@@ -88,7 +95,7 @@ class Staff extends Component {
    * @param {Object} item
    */
   handleDeleteStaff(item) {
-    console.log(item.id);
+    console.log(item.employeeId);
   }
 
   /**

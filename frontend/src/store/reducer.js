@@ -41,6 +41,7 @@ const reducer = (state = defaultState, action) => {
   if (action.type === GET_STAFF_LIST) {
     let newState = JSON.parse(JSON.stringify(state));
     newState.staffList = action.value;
+    console.log(action.value);
     return newState;
   }
   // 获取盘点信息
