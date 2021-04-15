@@ -92,6 +92,10 @@ export const getDeviceCarryRecord = (id) => {
   return (dispatch) => {
     axios.get('/warnRecord?deviceId=' + id).then((res) => {
       console.log(res);
+      if (res.data.success) {
+        const action = getDeviceCarryRecordAction(res.data.data.warnRecord);
+        dispatch(action);
+      }
     });
   };
 };
@@ -115,6 +119,12 @@ export const getDeviceCirculateRecord = (id) => {
   return (dispatch) => {
     axios.get('/circulateRecord?deviceId=' + id).then((res) => {
       console.log(res);
+      if (res.data.success) {
+        const action = getDeviceCirculateRecordAction(
+          res.data.data.circulateRecord
+        );
+        dispatch(action);
+      }
     });
   };
 };

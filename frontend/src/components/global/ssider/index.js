@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Menu } from 'antd';
 import {
-  AlertOutlined,
   AppstoreOutlined,
   AppstoreAddOutlined,
   FileSearchOutlined,
   FileTextOutlined,
+  InfoCircleOutlined,
   UserOutlined,
   UnorderedListOutlined,
   UsergroupAddOutlined,
@@ -34,9 +34,9 @@ class Ssider extends Component {
               <Link className="link" to="/search"></Link>
               查找设备
             </Menu.Item>
-            <Menu.Item key="#/alarm" icon={<AlertOutlined />}>
-              <Link className="link" to="/alarm"></Link>
-              设备带出记录
+            <Menu.Item key="#/info" icon={<InfoCircleOutlined />}>
+              <Link className="link" to="/info"></Link>
+              设备盘点
             </Menu.Item>
           </SubMenu>
           <SubMenu title="人员管理" icon={<UserOutlined />}>

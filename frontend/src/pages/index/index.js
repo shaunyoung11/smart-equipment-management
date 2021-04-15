@@ -7,7 +7,7 @@ import AddStaff from '../addStaff';
 import All from '../all';
 import Find from '../find';
 import Status from '../status';
-import Alarm from '../alarm';
+import Info from '../info';
 import { Layout } from 'antd';
 import './style.scss';
 import Staff from '../staff';
@@ -43,7 +43,7 @@ function Index(props) {
               <Route path="/search" component={Find}></Route>
               <Route path="/all" component={All}></Route>
               <Route path="/status" component={Status}></Route>
-              <Route path="/alarm" component={Alarm}></Route>
+              <Route path="/info" component={Info}></Route>
               <Route path="/addStaff" component={AddStaff}></Route>
               <Route path="/staff" component={Staff}></Route>
             </Switch>

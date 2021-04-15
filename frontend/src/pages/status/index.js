@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Image, Table, Typography } from 'antd';
 import store from '../../store';
+import {
+  getDeviceCarryRecord,
+  getDeviceCirculateRecord,
+} from '../../store/actionCreators';
 
 const { Title, Text } = Typography;
 const { Column } = Table;
@@ -9,24 +13,20 @@ class Status extends Component {
   constructor(props) {
     super(props);
     this.state = store.getState();
-    this.state.tableHeader = [
-      {
-        title: '时间',
-        dataIndex: 'time',
-        key: 'time',
-      },
-      {
-        title: '持有者',
-        dataIndex: 'holder',
-        key: 'holder',
-      },
-    ];
     if (this.props.location.state) {
       window.sessionStorage.setItem(
         'deviceName',
         this.props.location.state.name
       );
+      window.sessionStorage.setItem(
+        'deviceId',
+        this.props.location.state.deviceId
+      );
     }
+    // 改变函数 this 指向
+    this.storeChange = this.storeChange.bind(this);
+    // 设置仓库订阅
+    this.unsubscribe = store.subscribe(this.storeChange);
   }
   render() {
     return (
@@ -84,7 +84,7 @@ class Status extends Component {
         <Typography>
           <Title level={4}>设备流通记录</Title>
         </Typography>
-        <Table dataSource={this.state.deviceTransferRecord}>
+        <Table dataSource={this.state.deviceCirculateRecord}>
           <Column title="设备 ID" dataIndex="deviceId" key="deviceId" />
           <Column
             title="设备原持有者 ID"
@@ -100,6 +100,27 @@ class Status extends Component {
         </Table>
       </div>
     );
+  }
+
+  /**
+   * 生命周期函数 --- 组件挂载后执行
+   */
+  componentDidMount() {
+    const getCarryAction = getDeviceCarryRecord(
+      window.sessionStorage.getItem('deviceId')
+    );
+    const getCirculateAction = getDeviceCirculateRecord(
+      window.sessionStorage.getItem('deviceId')
+    );
+    store.dispatch(getCarryAction);
+    store.dispatch(getCirculateAction);
+  }
+
+  /**
+   * 仓库发生状态改变时，执行该函数
+   */
+  storeChange() {
+    this.setState(store.getState());
   }
 }
 
