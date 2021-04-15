@@ -5,6 +5,7 @@ import {
   GET_DEVICE_BY_NAME,
   GET_DEVICE_CARRY_RECORD,
   GET_DEVICE_CIRCULATE_RECORD,
+  GET_STAFF_LIST,
 } from './actionTypes';
 import { notification } from 'antd';
 
@@ -18,11 +19,7 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
-/**
- * 创建 redux 需要的 action
- * @param {Array} value
- * @returns 返回 redux 需要的 Object
- */
+// 创建 redux 需要的 action
 const getDeviceListAction = (value) => ({
   type: GET_DEVICE_LIST,
   value,
@@ -48,11 +45,7 @@ export const getDeviceList = () => {
   };
 };
 
-/**
- * 创建 redux 需要的 action
- * @param {Array} value
- * @returns 返回 Redux 可用的 action
- */
+// 创建 redux 需要的 action
 const getDeviceByNameAction = (value) => ({
   type: GET_DEVICE_BY_NAME,
   value,
@@ -73,11 +66,7 @@ export const getDeviceByName = (name) => {
   };
 };
 
-/**
- * 创建 redux 需要的 action
- * @param {Array} value
- * @returns 返回 Redux 可用的 action
- */
+// 创建 redux 需要的 action
 const getDeviceCarryRecordAction = (value) => ({
   type: GET_DEVICE_CARRY_RECORD,
   value,
@@ -100,11 +89,7 @@ export const getDeviceCarryRecord = (id) => {
   };
 };
 
-/**
- * 创建 redux 需要的 action
- * @param {Array} value
- * @returns 返回 Redux 可用的 action
- */
+// 创建 redux 需要的 action
 const getDeviceCirculateRecordAction = (value) => ({
   type: GET_DEVICE_CIRCULATE_RECORD,
   value,
@@ -123,6 +108,24 @@ export const getDeviceCirculateRecord = (id) => {
         const action = getDeviceCirculateRecordAction(
           res.data.data.circulateRecord
         );
+        dispatch(action);
+      }
+    });
+  };
+};
+
+// 创建 redux 需要的 action
+const getStaffListAction = (value) => ({
+  type: GET_STAFF_LIST,
+  value,
+});
+
+export const getStaffList = (id) => {
+  return (dispatch) => {
+    axios.get('/user/all').then((res) => {
+      console.log(res);
+      if (res.data.success) {
+        const action = getStaffListAction(res.data.data.list);
         dispatch(action);
       }
     });

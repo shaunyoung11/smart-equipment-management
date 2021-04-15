@@ -3,6 +3,7 @@ import {
   GET_DEVICE_CARRY_RECORD,
   GET_DEVICE_CIRCULATE_RECORD,
   GET_DEVICE_LIST,
+  GET_STAFF_LIST,
 } from './actionTypes';
 
 const defaultState = {
@@ -33,6 +34,12 @@ const reducer = (state = defaultState, action) => {
   if (action.type === GET_DEVICE_CIRCULATE_RECORD) {
     let newState = JSON.parse(JSON.stringify(state));
     newState.deviceCirculateRecord = action.value;
+    return newState;
+  }
+  // 获取员工列表
+  if (action.type === GET_STAFF_LIST) {
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.staffList = action.value;
     return newState;
   }
   return state;
