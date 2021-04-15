@@ -7,9 +7,9 @@ const { Title, Text } = Typography;
 const { Dragger } = Upload;
 
 const draggerProps = {
-  name: 'file',
+  name: 'userExcel',
   multiple: false,
-  action: url + '/',
+  action: url + '/user/batchAdd',
   onChange(info) {
     console.log(info);
     const { status } = info.file;
@@ -17,9 +17,13 @@ const draggerProps = {
       console.log(info.file, info.fileList);
     }
     if (status === 'done') {
-      message.success(`${info.file.name} 文件上传成功！`);
+      if (info.file.response.success) {
+        message.success(`${info.file.name} 添加用户成功`);
+      } else {
+        message.error(`${info.file.name} 添加用户失败`);
+      }
     } else if (status === 'error') {
-      message.error(`${info.file.name} 文件上传失败！`);
+      message.error(`${info.file.name} 文件上传失败`);
     }
   },
 };
@@ -33,7 +37,12 @@ class AddStaff extends Component {
           <Title level={2}>添加员工</Title>
           <Text type="secondary">通过上传excel表格批量导入员工信息</Text>
         </Typography>
-        <Dragger {...draggerProps} accept=".xlsx,.xls" height="400px">
+        <Dragger
+          {...draggerProps}
+          accept=".xlsx,.xls"
+          height="400px"
+          maxCount={1}
+        >
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
           </p>
