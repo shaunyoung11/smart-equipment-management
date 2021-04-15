@@ -19,9 +19,25 @@ class Staff extends Component {
           <Text type="secondary">查看员工列表</Text>
         </Typography>
         <Table>
-          <Column title="员工 ID" dataIndex="id" key="id"></Column>
-          <Column title="姓名" dataIndex="name" key="name"></Column>
-          <Column title="性别" dataIndex="sex" key="sex"></Column>
+          <Column title="员工 ID" dataIndex="employeeId" key="employeeId" />
+          <Column title="姓名" dataIndex="employeeName" key="employeeName" />
+          <Column
+            title="性别"
+            dataIndex="employeeGender"
+            key="employeeGender"
+          />
+          <Column
+            title="激活状态"
+            dataIndex="activeTag"
+            key="activeTag"
+            render={(text) => {
+              if (text === true) {
+                return <span className="actived">已激活</span>;
+              } else {
+                return <span className="not-actived">未激活</span>;
+              }
+            }}
+          />
           <Column
             title="操作"
             dataIndex="options"
