@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Table, Typography } from 'antd';
+import { Image, Table, Typography } from 'antd';
 import store from '../../store';
 
 const { Title, Text } = Typography;
+const { Column } = Table;
 
 class Status extends Component {
   constructor(props) {
@@ -34,7 +35,69 @@ class Status extends Component {
           <Title level={2}>{window.sessionStorage.getItem('deviceName')}</Title>
           <Text type="secondary">状态变更记录表</Text>
         </Typography>
-        <Table columns={this.state.tableHeader}></Table>
+        <Typography>
+          <Title level={4}>设备带出记录</Title>
+        </Typography>
+        <Table dataSource={this.state.deviceCarryRecord}>
+          <Column title="设备 ID" dataIndex="deviceId" key="deviceId" />
+          <Column
+            title="设备状态"
+            dataIndex="principalId"
+            key="principalId"
+            render={(text, record) => {
+              if (text !== null) {
+                // 如果当前持有者名称不为空，则显示 xxx 持有
+                return <span className="lent">{text + ' 持有'}</span>;
+              } else {
+                // 若为空，则显示设备在库
+                return <span className="in-store">在库</span>;
+              }
+            }}
+          />
+          <Column title="记录时间" dataIndex="warnTime" key="warnTime" />
+          <Column
+            title="保密性等级"
+            dataIndex="deviceLevel"
+            key="deviceLevel"
+            render={(text, record) => {
+              if (text === 1) {
+                // 保密性等级为 1，设备为常规设备
+                return <span className="normal device-level">常规设备</span>;
+              } else if (text === 2) {
+                // 保密性等级为 2，设备为重要设备
+                return <span className="important device-level">重要设备</span>;
+              } else {
+                // 保密性等级为 3，设备为保密设备
+                return <span className="secret device-level">保密设备</span>;
+              }
+            }}
+          />
+          <Column
+            title="照片记录"
+            dataIndex="carrierPhotoUrl"
+            key="carrierPhotoUrl"
+            render={(text, record) => {
+              <Image src={text} alt={record.deviceId}></Image>;
+            }}
+          />
+        </Table>
+        <Typography>
+          <Title level={4}>设备流通记录</Title>
+        </Typography>
+        <Table dataSource={this.state.deviceTransferRecord}>
+          <Column title="设备 ID" dataIndex="deviceId" key="deviceId" />
+          <Column
+            title="设备原持有者 ID"
+            dataIndex="preHolderId"
+            key="preHolderId"
+          />
+          <Column
+            title="设备新持有者 ID"
+            dataIndex="curHolderId"
+            key="curHolderId"
+          />
+          <Column title="更新时间" dataIndex="updateTime" key="updateTime" />
+        </Table>
       </div>
     );
   }

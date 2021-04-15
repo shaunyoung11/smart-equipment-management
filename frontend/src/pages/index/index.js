@@ -27,6 +27,18 @@ function Index(props) {
         <Content>
           <Router>
             <Switch>
+              <Route
+                path="/"
+                exact
+                component={() => {
+                  return (
+                    <div className="index-content">
+                      <h2>欢迎使用智慧设备管理系统</h2>
+                      <p>请选择左侧菜单栏功能</p>
+                    </div>
+                  );
+                }}
+              ></Route>
               <Route path="/addDevice" component={AddDevice}></Route>
               <Route path="/search" component={Find}></Route>
               <Route path="/all" component={All}></Route>

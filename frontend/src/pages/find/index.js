@@ -44,16 +44,24 @@ class Find extends Component {
           </Form.Item>
         </Form>
         <Table
+          tableLayout="auto"
+          scroll={{ x: true }}
           dataSource={this.state.deviceListFind}
           rowKey={(record) => {
             return record.deviceId + Date.now();
           }}
         >
-          <Column title="设备名称" dataIndex="deviceName" key="deviceName" />
+          <Column
+            title="设备名称"
+            dataIndex="deviceName"
+            key="deviceName"
+            width={150}
+          />
           <Column
             title="设备状态"
             dataIndex="holderId"
             key="holderId"
+            width={150}
             render={(text, record) => {
               if (text !== null) {
                 // 如果当前持有者名称不为空，则显示 xxx 持有
@@ -68,6 +76,7 @@ class Find extends Component {
             title="保密性等级"
             dataIndex="deviceLevel"
             key="deviceLevel"
+            width={150}
             render={(text, record) => {
               if (text === 1) {
                 // 保密性等级为 1，设备为常规设备
@@ -85,6 +94,7 @@ class Find extends Component {
             title="状态更新时间"
             dataIndex="updateTime"
             key="updateTime"
+            width={200}
           />
           <Column
             title="操作"
@@ -142,12 +152,12 @@ class Find extends Component {
 
   handleSearchDevice(value) {
     console.log(value);
-    window.localStorage.setItem('searchText', value);
+    window.sessionStorage.setItem('searchText', value);
     this.handleGetDeviceList();
   }
 
   handleGetDeviceList() {
-    const value = window.localStorage.getItem('searchText');
+    const value = window.sessionStorage.getItem('searchText');
     const action = getDeviceByName(value);
     store.dispatch(action);
   }
