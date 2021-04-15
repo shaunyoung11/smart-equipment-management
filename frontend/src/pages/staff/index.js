@@ -2,6 +2,7 @@ import { Button, Table, Typography } from 'antd';
 // import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import store from '../../store';
+import { getStaffList } from '../../store/actionCreators';
 
 const { Title, Text } = Typography;
 const { Column } = Table;
@@ -10,6 +11,8 @@ class Staff extends Component {
   constructor(props) {
     super(props);
     this.state = store.getState();
+    this.storeChange = this.storeChange.bind(this);
+    this.unsubscribe = store.subscribe(this.storeChange);
   }
   render() {
     return (
@@ -66,8 +69,41 @@ class Staff extends Component {
     );
   }
 
+  /**
+   * 生命周期函数 --- 组件挂载完成后执行
+   */
+  componentDidMount() {
+    this.handleGetStaffList();
+  }
+
+  /**
+   * 生命周期函数 --- 组件将要卸载时执行
+   */
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  /**
+   * 处理删除员工事件
+   * @param {Object} item
+   */
   handleDeleteStaff(item) {
     console.log(item.id);
+  }
+
+  /**
+   * 创建获取员工列表的 action
+   */
+  handleGetStaffList() {
+    const action = getStaffList();
+    store.dispatch(action);
+  }
+
+  /**
+   * 监听仓库更新，用于仓库订阅中
+   */
+  storeChange() {
+    this.setState(store.getState());
   }
 }
 
