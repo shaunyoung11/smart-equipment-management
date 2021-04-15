@@ -6,6 +6,7 @@ import {
   GET_DEVICE_CARRY_RECORD,
   GET_DEVICE_CIRCULATE_RECORD,
   GET_STAFF_LIST,
+  GET_INFO,
 } from './actionTypes';
 import { notification } from 'antd';
 
@@ -27,7 +28,6 @@ const getDeviceListAction = (value) => ({
 
 /**
  * 获取设备列表
- * @returns 返回中间件可用的 action
  */
 export const getDeviceList = () => {
   return (dispatch) => {
@@ -54,7 +54,6 @@ const getDeviceByNameAction = (value) => ({
 /**
  * 通过设备名称搜索匹配的设备
  * @param {String} name
- * @returns 返回中间件可用的 action
  */
 export const getDeviceByName = (name) => {
   return (dispatch) => {
@@ -75,7 +74,6 @@ const getDeviceCarryRecordAction = (value) => ({
 /**
  * 通过设备 ID，获取设备的带出记录
  * @param {String} id
- * @returns 返回中间件可用的 action
  */
 export const getDeviceCarryRecord = (id) => {
   return (dispatch) => {
@@ -98,7 +96,6 @@ const getDeviceCirculateRecordAction = (value) => ({
 /**
  * 通过设备 ID，获取设备流通记录
  * @param {String} id
- * @returns 返回 Redux 可用的 action
  */
 export const getDeviceCirculateRecord = (id) => {
   return (dispatch) => {
@@ -120,12 +117,33 @@ const getStaffListAction = (value) => ({
   value,
 });
 
-export const getStaffList = (id) => {
+/**
+ * 获取员工列表
+ */
+export const getStaffList = () => {
   return (dispatch) => {
     axios.get('/user/all').then((res) => {
       console.log(res);
       if (res.data.success) {
         const action = getStaffListAction(res.data.data.list);
+        dispatch(action);
+      }
+    });
+  };
+};
+
+// 创建 redux 需要的 action
+const getInfoAction = (value) => ({
+  type: GET_INFO,
+  value,
+});
+
+export const getInfo = () => {
+  return (dispatch) => {
+    axios.get('/device/stocktaking').then((res) => {
+      console.log(res);
+      if (res.data.success) {
+        const action = getInfoAction(res.data.data);
         dispatch(action);
       }
     });

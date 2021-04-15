@@ -3,6 +3,7 @@ import {
   GET_DEVICE_CARRY_RECORD,
   GET_DEVICE_CIRCULATE_RECORD,
   GET_DEVICE_LIST,
+  GET_INFO,
   GET_STAFF_LIST,
 } from './actionTypes';
 
@@ -40,6 +41,19 @@ const reducer = (state = defaultState, action) => {
   if (action.type === GET_STAFF_LIST) {
     let newState = JSON.parse(JSON.stringify(state));
     newState.staffList = action.value;
+    return newState;
+  }
+  // 获取盘点信息
+  if (action.type === GET_INFO) {
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.info = [
+      {
+        deviceOnLoan: action.value.deviceOnLoan,
+        allCount: action.value.allCount,
+        inventory: action.value.inventory,
+      },
+    ];
+    newState.deviceListInStore = action.value.onLoanList;
     return newState;
   }
   return state;

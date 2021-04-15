@@ -4,6 +4,7 @@ import store from '../../store';
 import './style.scss';
 
 const { Title, Text } = Typography;
+const { Column } = Table;
 
 class Alarm extends Component {
   constructor(props) {
@@ -42,12 +43,24 @@ class Alarm extends Component {
   }
   render() {
     return (
-      <div className="alarm">
+      <div className="info">
         <Typography>
           <Title level={2}>设备盘点</Title>
           <Text type="secondary">查看设备盘点信息</Text>
         </Typography>
-        <Table columns={this.state.tableHeader}></Table>
+        <Table dataSource={this.state.info}>
+          <Column title="设备总数" dataIndex="allCount" key="dataIndex" />
+          <Column
+            title="外借设备数量"
+            dataIndex="deviceOnLoan"
+            key="deviceOnLoan"
+          />
+          <Column title="在库设备数量" dataIndex="inventory" key="inventory" />
+        </Table>
+        <Typography>
+          <Title level={4}>在库设备列表</Title>
+        </Typography>
+        <Table dataSource={this.state.deviceListInStore}></Table>
       </div>
     );
   }
