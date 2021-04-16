@@ -1,4 +1,5 @@
-import { Button, Table, Typography } from 'antd';
+import { Button, message, Table, Typography } from 'antd';
+import axios from 'axios';
 // import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import store from '../../store';
@@ -96,6 +97,13 @@ class Staff extends Component {
    */
   handleDeleteStaff(item) {
     console.log(item.employeeId);
+    axios.delete('/user/delete?userId=' + item.employeeId).then((res) => {
+      if (res.data.success) {
+        message.success('删除成功');
+      } else {
+        message.error('删除失败');
+      }
+    });
   }
 
   /**
