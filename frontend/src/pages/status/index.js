@@ -5,6 +5,7 @@ import {
   getDeviceCarryRecord,
   getDeviceCirculateRecord,
 } from '../../store/actionCreators';
+import './style.scss';
 
 const { Title, Text } = Typography;
 const { Column } = Table;
@@ -18,10 +19,7 @@ class Status extends Component {
         'deviceName',
         this.props.location.state.name
       );
-      window.sessionStorage.setItem(
-        'deviceId',
-        this.props.location.state.deviceId
-      );
+      window.sessionStorage.setItem('deviceId', this.props.location.state.id);
     }
     // 改变函数 this 指向
     this.storeChange = this.storeChange.bind(this);
@@ -36,9 +34,14 @@ class Status extends Component {
           <Text type="secondary">状态变更记录表</Text>
         </Typography>
         <Typography>
-          <Title level={4}>设备带出记录</Title>
+          <Title level={4}>带出报警记录</Title>
         </Typography>
-        <Table dataSource={this.state.deviceCarryRecord}>
+        <Table
+          dataSource={this.state.deviceCarryRecord}
+          rowKey={(record) => {
+            return record.deviceId + Date.now();
+          }}
+        >
           <Column title="设备 ID" dataIndex="deviceId" key="deviceId" />
           <Column
             title="设备状态"
@@ -55,46 +58,53 @@ class Status extends Component {
             }}
           />
           <Column title="记录时间" dataIndex="warnTime" key="warnTime" />
-          <Column
-            title="保密性等级"
-            dataIndex="deviceLevel"
-            key="deviceLevel"
-            render={(text, record) => {
-              if (text === 1) {
-                // 保密性等级为 1，设备为常规设备
-                return <span className="normal device-level">常规设备</span>;
-              } else if (text === 2) {
-                // 保密性等级为 2，设备为重要设备
-                return <span className="important device-level">重要设备</span>;
-              } else {
-                // 保密性等级为 3，设备为保密设备
-                return <span className="secret device-level">保密设备</span>;
-              }
-            }}
-          />
+          <Column title="报警等级" dataIndex="warnLevel" key="warnLevel" />
           <Column
             title="照片记录"
             dataIndex="carrierPhotoUrl"
             key="carrierPhotoUrl"
             render={(text, record) => {
-              <Image src={text} alt={record.deviceId}></Image>;
+              if (text === 'null') {
+                return '携带者合法';
+              } else {
+                return <img className="warnPhoto" src={text} alt="" />;
+              }
             }}
           />
         </Table>
         <Typography>
           <Title level={4}>设备流通记录</Title>
         </Typography>
-        <Table dataSource={this.state.deviceCirculateRecord}>
+        <Table
+          dataSource={this.state.deviceCirculateRecord}
+          rowKey={(record) => {
+            return record.deviceId + Date.now();
+          }}
+        >
           <Column title="设备 ID" dataIndex="deviceId" key="deviceId" />
           <Column
             title="设备原持有者 ID"
             dataIndex="preHolderId"
             key="preHolderId"
+            render={(text) => {
+              if (text === null) {
+                return '在库';
+              } else {
+                return text;
+              }
+            }}
           />
           <Column
             title="设备新持有者 ID"
             dataIndex="curHolderId"
             key="curHolderId"
+            render={(text) => {
+              if (text === null) {
+                return '在库';
+              } else {
+                return text;
+              }
+            }}
           />
           <Column title="更新时间" dataIndex="updateTime" key="updateTime" />
         </Table>

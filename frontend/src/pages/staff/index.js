@@ -100,6 +100,7 @@ class Staff extends Component {
     axios.delete('/user/delete?userId=' + item.employeeId).then((res) => {
       if (res.data.success) {
         message.success('删除成功');
+        this.handleGetStaffList();
       } else {
         message.error('删除失败');
       }
