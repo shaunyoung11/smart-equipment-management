@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Table, Typography } from 'antd';
+import { Table, Typography } from 'antd';
 import store from '../../store';
 import {
   getDeviceCarryRecord,
@@ -39,7 +39,7 @@ class Status extends Component {
         <Table
           dataSource={this.state.deviceCarryRecord}
           rowKey={(record) => {
-            return record.deviceId + Date.now();
+            return record.warnTime + Date.now();
           }}
         >
           <Column title="设备 ID" dataIndex="deviceId" key="deviceId" />
@@ -64,7 +64,7 @@ class Status extends Component {
             dataIndex="carrierPhotoUrl"
             key="carrierPhotoUrl"
             render={(text, record) => {
-              if (text === 'null') {
+              if (text === null) {
                 return '携带者合法';
               } else {
                 return <img className="warnPhoto" src={text} alt="" />;
@@ -78,7 +78,7 @@ class Status extends Component {
         <Table
           dataSource={this.state.deviceCirculateRecord}
           rowKey={(record) => {
-            return record.deviceId + Date.now();
+            return record.updateTime + Date.now();
           }}
         >
           <Column title="设备 ID" dataIndex="deviceId" key="deviceId" />
@@ -124,6 +124,10 @@ class Status extends Component {
     );
     store.dispatch(getCarryAction);
     store.dispatch(getCirculateAction);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   /**
