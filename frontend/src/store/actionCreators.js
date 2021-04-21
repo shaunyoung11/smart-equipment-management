@@ -138,6 +138,7 @@ const getInfoAction = (value) => ({
   value,
 });
 
+// 获取设备盘点信息
 export const getInfo = () => {
   return (dispatch) => {
     axios.get('/device/stocktaking').then((res) => {
