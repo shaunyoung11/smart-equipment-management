@@ -1,8 +1,12 @@
-import { Button, message, Table, Typography } from 'antd';
-import axios from 'axios';
-// import { Link } from 'react-router-dom';
+// 导入 react
 import React, { Component } from 'react';
+// 导入 antd 组件
+import { Button, message, Table, Typography } from 'antd';
+// 导入 axios 库
+import axios from 'axios';
+// 导入 redux store
 import store from '../../store';
+// 导入获取员工列表方法
 import { getStaffList } from '../../store/actionCreators';
 
 const { Title, Text } = Typography;
@@ -11,42 +15,54 @@ const { Column } = Table;
 class Staff extends Component {
   constructor(props) {
     super(props);
+    // 初始化 state
     this.state = store.getState();
+    // 改变 this 指向
     this.storeChange = this.storeChange.bind(this);
+    // 添加仓库数据订阅
     this.unsubscribe = store.subscribe(this.storeChange);
   }
   render() {
     return (
       <div className="staff">
+        {/* 页面标题 */}
         <Typography>
           <Title level={2}>员工列表</Title>
           <Text type="secondary">查看员工列表</Text>
         </Typography>
+        {/* 员工列表表格 */}
         <Table
           dataSource={this.state.staffList}
           rowKey={(record) => {
             return record.employeeId + Date.now();
           }}
         >
+          {/* 员工 ID 列 */}
           <Column title="员工 ID" dataIndex="employeeId" key="employeeId" />
+          {/* 员工姓名列 */}
           <Column title="姓名" dataIndex="employeeName" key="employeeName" />
+          {/* 性别列 */}
           <Column
             title="性别"
             dataIndex="employeeGender"
             key="employeeGender"
           />
+          {/* 账号激活状态列 */}
           <Column
             title="激活状态"
             dataIndex="activeTag"
             key="activeTag"
             render={(text) => {
               if (text === true) {
+                // 若 activeTag 为 true，则为已激活
                 return <span className="actived">已激活</span>;
               } else {
+                // 否则为未激活状态
                 return <span className="not-actived">未激活</span>;
               }
             }}
           />
+          {/* 对员工进行操作 */}
           <Column
             title="操作"
             dataIndex="options"
@@ -63,6 +79,7 @@ class Staff extends Component {
                     className="item"
                     danger
                     onClick={() => {
+                      // 删除员工方法
                       this.handleDeleteStaff(record);
                     }}
                   >
