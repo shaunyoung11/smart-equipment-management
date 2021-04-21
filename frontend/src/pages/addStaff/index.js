@@ -6,6 +6,7 @@ import url from '../../config';
 const { Title, Text } = Typography;
 const { Dragger } = Upload;
 
+// 拖动上传文件配置
 const draggerProps = {
   name: 'userExcel',
   multiple: false,
@@ -33,10 +34,12 @@ class AddStaff extends Component {
   render() {
     return (
       <div className="add-staff">
+        {/* 页面标题 */}
         <Typography>
           <Title level={2}>添加员工</Title>
           <Text type="secondary">通过上传excel表格批量导入员工信息</Text>
         </Typography>
+        {/* 拖动上传文件组件 */}
         <Dragger
           {...draggerProps}
           accept=".xlsx,.xls"

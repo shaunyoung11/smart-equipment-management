@@ -1,11 +1,16 @@
+// 导入 antd 组件
 import { message, Typography, Upload } from 'antd';
+// 导入 antd 图标
 import { InboxOutlined } from '@ant-design/icons';
+// 导入 React
 import React, { Component } from 'react';
+// 导入请求链接地址
 import url from '../../config';
 
 const { Title, Text } = Typography;
 const { Dragger } = Upload;
 
+// 上传文件组件配置
 const draggerProps = {
   name: 'deviceExcel',
   multiple: false,
@@ -30,10 +35,12 @@ class AddDevice extends Component {
   render() {
     return (
       <div className="add-device">
+        {/* 页面标题 */}
         <Typography>
           <Title level={2}>添加设备</Title>
           <Text type="secondary">通过上传excel表格批量导入设备</Text>
         </Typography>
+        {/* 拖动上传组件 */}
         <Dragger
           {...draggerProps}
           accept=".xlsx,.xls"

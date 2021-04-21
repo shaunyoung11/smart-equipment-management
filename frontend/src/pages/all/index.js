@@ -38,7 +38,9 @@ class All extends Component {
           }}
           dataSource={this.state.deviceListAll}
         >
+          {/* 设备名称列 */}
           <Column title="设备名称" dataIndex="deviceName" key="deviceName" />
+          {/* 设备状态列 */}
           <Column
             title="设备状态"
             dataIndex="holderId"
@@ -53,6 +55,7 @@ class All extends Component {
               }
             }}
           />
+          {/* 设备保密性等级列 */}
           <Column
             title="保密性等级"
             dataIndex="deviceLevel"
@@ -70,11 +73,13 @@ class All extends Component {
               }
             }}
           />
+          {/* 设备状态更新时间列 */}
           <Column
             title="状态更新时间"
             dataIndex="updateTime"
             key="updateTime"
           />
+          {/* 可对设备进行的操作 */}
           <Column
             title="操作"
             dataIndex="options"
@@ -99,9 +104,11 @@ class All extends Component {
                   {/* 删除设备 */}
                   <Popconfirm
                     title="是否确认删除该设备？"
+                    // 若确认删除设备，则调用相关函数对其进行删除
                     onConfirm={() => {
                       this.handleDelDevice(index, record.deviceId);
                     }}
+                    // 取消删除动作会弹出提醒框
                     onCancel={() => {
                       message.info('取消删除操作');
                     }}
@@ -142,6 +149,7 @@ class All extends Component {
     this.setState(store.getState());
   }
 
+  // 获取设备列表函数
   handleGetDeviceList() {
     const action = getDeviceList();
     store.dispatch(action);
@@ -154,12 +162,17 @@ class All extends Component {
    */
   handleDelDevice(index, id) {
     console.log(index, id);
+    // 调用后端借口，请求删除设备
     axios.delete('/device/delete?deviceId=' + id).then((res) => {
       console.log(res);
       if (res.data.success) {
+        // 如果响应数据的 `data.success` 为 true，表示删除成功
+        // 提示删除成功
         message.success('删除成功');
+        // 重新获取设备列表并渲染
         this.handleGetDeviceList();
       } else {
+        // 如果响应的数据该字段为 false，表示删除失败
         message.error('删除失败');
       }
     });

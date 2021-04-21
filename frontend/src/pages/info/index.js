@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Table, Typography } from 'antd';
+import { Table, Typography } from 'antd';
 import store from '../../store';
 import './style.scss';
 import { getInfo } from '../../store/actionCreators';
