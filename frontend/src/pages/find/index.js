@@ -1,3 +1,4 @@
+// 导入 antd 组件
 import {
   Button,
   Form,
@@ -7,10 +8,15 @@ import {
   Table,
   Typography,
 } from 'antd';
+// 导入路由组件
 import { Link } from 'react-router-dom';
+// 导入 React
 import React, { Component } from 'react';
+// 导入 redux store
 import store from '../../store';
+// 导入按设备
 import { getDeviceByName } from '../../store/actionCreators';
+// 导入样式文件
 import './style.scss';
 import axios from 'axios';
 
@@ -20,20 +26,25 @@ const { Column } = Table;
 class Find extends Component {
   constructor(props) {
     super(props);
+    // 初始化 state
     this.state = store.getState();
+    // 修改 this 指向
     this.storeChange = this.storeChange.bind(this);
     this.handleDelDevice = this.handleDelDevice.bind(this);
     this.handleSearchDevice = this.handleSearchDevice.bind(this);
+    // 添加仓库订阅
     this.unsubscribe = store.subscribe(this.storeChange);
   }
 
   render() {
     return (
       <div className="find">
+        {/* 页面标题 */}
         <Typography>
           <Title level={2}>查询设备信息</Title>
           <Text type="secondary">输入设备名称，查询设备信息</Text>
         </Typography>
+        {/* 查询表单 */}
         <Form>
           <Form.Item label="设备名称">
             <Input.Search
@@ -43,6 +54,7 @@ class Find extends Component {
             ></Input.Search>
           </Form.Item>
         </Form>
+        {/* 数据表格 */}
         <Table
           tableLayout="auto"
           scroll={{ x: true }}
@@ -51,12 +63,14 @@ class Find extends Component {
             return record.deviceId + Date.now();
           }}
         >
+          {/* 设备名称列 */}
           <Column
             title="设备名称"
             dataIndex="deviceName"
             key="deviceName"
             width={150}
           />
+          {/* 设备状态列 */}
           <Column
             title="设备状态"
             dataIndex="holderId"
@@ -72,6 +86,7 @@ class Find extends Component {
               }
             }}
           />
+          {/* 保密性等级列 */}
           <Column
             title="保密性等级"
             dataIndex="deviceLevel"
@@ -90,12 +105,14 @@ class Find extends Component {
               }
             }}
           />
+          {/* 状态更新时间列 */}
           <Column
             title="状态更新时间"
             dataIndex="updateTime"
             key="updateTime"
             width={200}
           />
+          {/* 对设备进行对操作 */}
           <Column
             title="操作"
             dataIndex="options"
@@ -106,6 +123,7 @@ class Find extends Component {
                 <div className="btns">
                   {/* 查看变更记录 */}
                   <Button className="item" type="primary">
+                    {/* 路由传参 */}
                     <Link
                       to={{
                         pathname: '/status',
@@ -121,9 +139,11 @@ class Find extends Component {
                   <Popconfirm
                     title="是否确认删除该设备？"
                     onConfirm={() => {
+                      // 确认删除设备
                       this.handleDelDevice(index, record.deviceId);
                     }}
                     onCancel={() => {
+                      // 取消删除操作
                       message.info('取消删除操作');
                     }}
                     okText="确认"
@@ -142,20 +162,24 @@ class Find extends Component {
     );
   }
 
+  // 生命周期函数 - 组件卸载时调用
   componentWillUnmount() {
     this.unsubscribe();
   }
 
+  // 仓库数据变更时调用
   storeChange() {
     this.setState(store.getState());
   }
 
+  // 处理搜索设备操作，获取到搜索框中的值
   handleSearchDevice(value) {
     console.log(value);
     window.sessionStorage.setItem('searchText', value);
     this.handleGetDeviceList();
   }
 
+  // 处理获取设备列表
   handleGetDeviceList() {
     const value = window.sessionStorage.getItem('searchText');
     const action = getDeviceByName(value);
